@@ -1,62 +1,77 @@
-def BMI():
-    def cal():
-        print("\n--- Welcome to BMI Calculator ---")
+def show_menu():
+        print("\n--- Welcome to BMI Calculator ---\n")
         print("1. Calculator with m")
         print("2. Calculator with cm")
         print("3. Exit")
 
-    while True:
-        cal()
-        cal_choice = input("Enter your choice: ")
-
-        if cal_choice == "3":
-            print("Goodbye!")
-            break
-
-        elif cal_choice in ["1", "2"]:
-            try:
-
-
-                if cal_choice == "1":
-                    height = float(input("Enter your height (in meters): "))
-                    weight = float(input("Enter your weight (kg): "))
-                    if height <= 0:
-                        print("Height must be greater than zero.")
-                        continue
-                    result = weight / (height ** 2)
-
-                elif cal_choice == "2":
-                    height_cm = float(input("Enter your height (in cm): "))
-                    weight = float(input("Enter your weight (kg): "))
-                    if height_cm <= 0:
-                        print("Height must be greater than zero.")
-                        continue
-                    height_m = height_cm / 100
-                    result = weight / (height_m ** 2)
-
-                print(f"Your BMI is: {result:.2f}")
-
-                if result < 18.5:
-                    print("You are underweight.")
-                elif 18.5 <= result < 25:
-                    print("You have a normal weight.")
-                elif 25 <= result < 30:
-                    print("You are overweight.")
-                elif 30 <= result < 35:
-                    print("You are obese (Class 1).")
-                elif 35 <= result < 40:
-                    print("You are obese (Class 2).")
-                else:
-                    print("You are severely obese (Class 3).")
-
-            except ValueError:
+def get_height():
+    while True:    
+        show_menu()
+        choice =input("Enter your choice: ")
+        if choice == "3":
+            print("Good bye 🙋🏼‍♂️")
+            return None
+        try:
+            if choice =="1":
+                height = float(input("Enter your height in meter: "))
+                if height <= 0 :
+                    print("Height must be greater than zero")
+                    continue
+            elif choice =="2": 
+                height_cm = float(input("Enter your height in centimeter: "))
+                height = height_cm / 100
+                if height_cm <= 0 :
+                    print("Height must be greater than zero")
+                    continue
+            else:
+                print("Invalid choice")
+                continue
+        except ValueError:
                 print("Invalid input! Please enter numeric values only.")
-        else:
-            print("Invalid choice, please enter 1, 2, or 3.")
+                continue
 
-BMI()
-        
-    # weight = int(input("Enter your weight: "))
-    # height = float(input("Enter your height (in meters): "))
-    # height_squared = height * height
-    # result = weight / height_squared
+
+        return height
+
+def get_weight():
+    while True:
+        try:
+            weight = float(input("Enter your weight in Kilograms: "))
+            if weight <= 0:
+                print("Weight must be greater than zero")
+                continue
+        except ValueError:
+                print("Invalid input! Please enter numeric values only.")  
+                continue
+        return weight
+
+def calculate_bmi(height, weight):
+    bmi = (weight / (height**2))
+    return bmi
+
+def show_result(bmi):
+    print(f"Your BMI is: {bmi:.2f}")
+
+    if bmi < 18.5:
+        print("You are underweight.")
+    elif bmi < 25:
+        print("You have a normal weight.")
+    elif bmi < 30:
+        print("You are overweight.")
+    elif bmi < 35:
+        print("You are obese (Class 1).")
+    elif bmi < 40:
+        print("You are obese (Class 2).")
+    else:
+        print("You are severely obese (Class 3).")
+
+def main():
+    while True:
+        height = get_height()
+        if height is None:
+            break
+        weight = get_weight()
+        bmi = calculate_bmi(height, weight)
+        show_result(bmi)
+
+main()
