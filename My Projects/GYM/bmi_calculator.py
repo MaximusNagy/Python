@@ -74,4 +74,5 @@ def main():
         bmi = calculate_bmi(height, weight)
         show_result(bmi)
 
-main()
+if __name__ == "__main__":
+    main()

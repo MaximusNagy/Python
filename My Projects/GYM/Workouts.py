@@ -41,6 +41,6 @@ while True:
 
     elif choice == "2":
         print("Automatic workout planning is not available yet.")
-
+        break
     else:
         print("Invalid choice.")
